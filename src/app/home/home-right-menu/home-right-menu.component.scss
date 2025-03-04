@@ -1,0 +1,41 @@
+.who-to-follow {
+    width: 100%;
+    max-width: 300px;
+    padding: 16px;
+  }
+  
+  .user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .handle {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .follow-button {
+    font-size: 12px;
+  }
+  
+  /* Hide on mobile */
+  @media screen and (max-width: 768px) {
+    .who-to-follow {
+      display: none;
+    }
+  }
+  
