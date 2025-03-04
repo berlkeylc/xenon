@@ -7,6 +7,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgFor } from '@angular/common';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-feed',
@@ -17,11 +18,13 @@ import { NgFor } from '@angular/common';
   styleUrl: './feed.component.scss',
   standalone: true
 })
-export class FeedComponent {
-  tweets = [
-    { user: 'John Doe', handle: 'johndoe', content: 'This is my first tweet!' },
-    { user: 'Jane Smith', handle: 'janesmith', content: 'Loving this Twitter clone!' },
-    { user: 'Angular Dev', handle: 'angular_dev', content: 'Angular Material makes UI easy!' },
-  ];
 
+export class FeedComponent {
+  tweets: any[] = []; 
+
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    this.tweets = this.dashboardService.getTweets() ?? [];
+  }
 }
