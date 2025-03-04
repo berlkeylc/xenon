@@ -4,13 +4,14 @@ import {MatListModule} from '@angular/material/list';
 import { HomeLeftMenuComponent } from './home-left-menu/home-left-menu.component';
 import { HomeRightMenuComponent } from './home-right-menu/home-right-menu.component';
 import { FeedComponent } from "./feed/feed.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   imports: [MatGridListModule,
     MatListModule,
     HomeLeftMenuComponent,
-    HomeRightMenuComponent, FeedComponent, HomeRightMenuComponent],
+    HomeRightMenuComponent, FeedComponent, HomeRightMenuComponent,RouterOutlet],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

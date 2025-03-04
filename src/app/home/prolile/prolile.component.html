@@ -1,0 +1,42 @@
+<div class="profile-container">
+    <!-- Cover Photo -->
+    <div class="cover-photo"></div>
+  
+    <!-- Profile Image & Info -->
+    <div class="profile-info">
+      <img class="profile-pic" [src]="user?.avatarUrl" alt="Profile Picture" />
+  
+      <div class="profile-details">
+        <h2>{{ user?.name }}</h2>
+        <p class="handle">{{ user?.username }}</p>
+        <p class="bio">{{ user?.bio || 'No bio available' }}</p>
+  
+        <div class="follow-info">
+          <span><strong>120</strong> Following</span>
+          <span><strong>500</strong> Followers</span>
+        </div>
+  
+        <button mat-button color="primary">Edit Profile</button>
+      </div>
+    </div>
+  
+    <!-- Tabs for Tweets & Likes -->
+    <mat-tab-group>
+      <mat-tab label="Tweets">
+        <div *ngFor="let tweet of tweets" class="tweet">
+          <h4>{{ tweet.user }}</h4>
+          <p>{{ tweet.content }}</p>
+          <span>❤️ {{ tweet.likes }} Likes</span>
+        </div>
+      </mat-tab>
+  
+      <mat-tab label="Likes">
+        <div *ngFor="let likedTweet of likedTweets" class="tweet">
+          <h4>{{ likedTweet.user }}</h4>
+          <p>{{ likedTweet.content }}</p>
+          <span>❤️ {{ likedTweet.likes }} Likes</span>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  
