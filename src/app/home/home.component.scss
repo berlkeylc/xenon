@@ -1,0 +1,24 @@
+@media screen and (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  
+    .right-menu {
+      display: none;
+    }
+
+    .feed {
+      width: 100%;
+    }
+  }
+
+  .feed {
+    width: 35%;
+  }
+  .sidebar {
+    width: 20%;
+  }
+
+  .right-menu {
+    width: 20%;
+  }

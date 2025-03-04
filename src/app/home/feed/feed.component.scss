@@ -1,0 +1,60 @@
+.feed-header {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .tweet-box {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .tweet-input {
+    width: 100%;
+  }
+  
+  .tweet-button {
+    align-self: flex-end;
+    margin-top: 8px;
+  }
+  
+  .feed-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .tweet-card {
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+  
+  .tweet-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-icon {
+    font-size: 40px;
+    margin-right: 10px;
+  }
+  
+  .tweet-user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tweet-handle {
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .tweet-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  

@@ -1,0 +1,38 @@
+<!-- Top Bar -->
+<mat-toolbar color="primary" class="feed-header">
+  <span>Home</span>
+</mat-toolbar>
+
+<!-- Tweet Input Section -->
+<div class="tweet-box">
+  <mat-form-field appearance="outline" class="tweet-input">
+    <textarea matInput placeholder="What's happening?" rows="3"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" class="tweet-button">Tweet</button>
+</div>
+
+<mat-divider></mat-divider>
+
+<!-- Tweets List -->
+<div class="feed-container">
+  <mat-card *ngFor="let tweet of tweets" class="tweet-card">
+    <div class="tweet-header">
+      <mat-icon class="profile-icon">account_circle</mat-icon>
+      <div class="tweet-user-info">
+        <span class="tweet-user"><strong>{{ tweet.user }}</strong></span>
+        <span class="tweet-handle">{{ tweet.handle }}</span>
+      </div>
+    </div>
+
+    <mat-card-content>
+      <p>{{ tweet.content }}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="tweet-actions">
+      <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
+      <button mat-icon-button><mat-icon>repeat</mat-icon></button>
+      <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+      <button mat-icon-button><mat-icon>share</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
+</div>
