@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
-import { NgFor } from '@angular/common';
 import { User } from '../../models/UIModels';
 import { UserService } from '../../services/user.service';
+import { UiComponentsModule } from '../../shared/ui-components/ui-components.module';
 
 @Component({
   selector: 'app-prolile',
-  imports: [MatTabsModule, MatButtonModule, NgFor],
+  imports: [UiComponentsModule],
   templateUrl: './prolile.component.html',
   styleUrl: './prolile.component.scss'
 })
@@ -17,10 +15,9 @@ export class ProlileComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    // Servisten kullanıcı verilerini almak
     this.userService.getUser().subscribe(
       (data) => {
-        this.user = data;  // Kullanıcıyı bileşene alıyoruz
+        this.user = data; 
       },
       (error) => {
         console.error('Kullanıcı verisi çekilirken hata oluştu:', error);

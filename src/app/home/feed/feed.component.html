@@ -1,21 +1,19 @@
-<!-- Top Bar -->
-<mat-toolbar color="primary" class="feed-header">
-  <span>Home</span>
-</mat-toolbar>
+<div class="main-container">
 
-<!-- Tweet Input Section -->
+<div class="feed-header">
+  <span>Home</span>
+</div>
+
 <div class="tweet-box">
   <mat-form-field appearance="outline" class="tweet-input">
     <textarea matInput placeholder="What's happening?" rows="3"></textarea>
   </mat-form-field>
-  <button mat-raised-button color="primary" class="tweet-button">Tweet</button>
+  <button mat-raised-button color="primary" class="tweet-button">Post</button>
 </div>
 
-<mat-divider></mat-divider>
 
-<!-- Tweets List -->
 <div class="feed-container">
-  <mat-card *ngFor="let tweet of tweets" class="tweet-card">
+  <div *ngFor="let tweet of tweets" class="tweet-card">
     <div class="tweet-header">
       <mat-icon class="profile-icon">account_circle</mat-icon>
       <div class="tweet-user-info">
@@ -24,15 +22,17 @@
       </div>
     </div>
 
-    <mat-card-content>
+    <div>
       <p>{{ tweet.content }}</p>
-    </mat-card-content>
+    </div>
 
-    <mat-card-actions class="tweet-actions">
+    <div class="tweet-actions">
+      <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
       <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
       <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-      <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
-      <button mat-icon-button><mat-icon>share</mat-icon></button>
-    </mat-card-actions>
-  </mat-card>
+      <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
+    </div>
+  </div>
 </div>
+</div>
+

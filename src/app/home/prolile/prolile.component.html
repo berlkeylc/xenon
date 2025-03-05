@@ -16,25 +16,59 @@
           <span><strong>500</strong> Followers</span>
         </div>
   
-        <button mat-button color="primary">Edit Profile</button>
+        <button class="profile-button" mat-button color="primary">Edit Profile</button>
       </div>
     </div>
   
-    <!-- Tabs for Tweets & Likes -->
     <mat-tab-group>
       <mat-tab label="Tweets">
-        <div *ngFor="let tweet of tweets" class="tweet">
-          <h4>{{ tweet.user }}</h4>
-          <p>{{ tweet.content }}</p>
-          <span>❤️ {{ tweet.likes }} Likes</span>
+        <div class="feed-container">
+          <div *ngFor="let tweet of tweets" class="tweet-card">
+            <div class="tweet-header">
+              <mat-icon class="profile-icon">account_circle</mat-icon>
+              <div class="tweet-user-info">
+                <span class="tweet-user"><strong>{{ tweet.user }}</strong></span>
+                <span class="tweet-handle">{{ tweet.user }}</span>
+              </div>
+            </div>
+        
+            <div>
+              <p>{{ tweet.content }}</p>
+            </div>
+        
+            <div class="tweet-actions">
+              <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+              <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
+              <button mat-icon-button><mat-icon>repeat</mat-icon></button>
+              <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
+            </div>
+          </div>
         </div>
       </mat-tab>
   
+
       <mat-tab label="Likes">
-        <div *ngFor="let likedTweet of likedTweets" class="tweet">
-          <h4>{{ likedTweet.user }}</h4>
-          <p>{{ likedTweet.content }}</p>
-          <span>❤️ {{ likedTweet.likes }} Likes</span>
+        <div class="feed-container">
+          <div *ngFor="let likedTweet of likedTweets" class="tweet-card">
+            <div class="tweet-header">
+              <mat-icon class="profile-icon">account_circle</mat-icon>
+              <div class="tweet-user-info">
+                <span class="tweet-user"><strong>{{ likedTweet.user }}</strong></span>
+                <span class="tweet-handle">{{ likedTweet.user }}</span>
+              </div>
+            </div>
+        
+            <div>
+              <p>{{ likedTweet.content }}</p>
+            </div>
+        
+            <div class="tweet-actions">
+              <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+              <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
+              <button mat-icon-button><mat-icon>repeat</mat-icon></button>
+              <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
+            </div>
+          </div>
         </div>
       </mat-tab>
     </mat-tab-group>

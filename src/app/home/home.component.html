@@ -1,7 +1,8 @@
 <div style="display: flex; justify-content: center;">
-    <app-home-left-menu class="sidebar"></app-home-left-menu>
+    <app-home-left-menu *ngIf="!isMobile" class="sidebar"></app-home-left-menu>
     <div class="feed">
         <router-outlet></router-outlet>
     </div>
-    <app-home-right-menu class="right-menu"></app-home-right-menu>
+    <app-home-right-menu *ngIf="!isMobile" class="right-menu"></app-home-right-menu>
+    <app-bottom-bar class="bottom-bar"></app-bottom-bar>
 </div>
