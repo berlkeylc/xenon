@@ -1,41 +1,68 @@
 .who-to-follow {
-    width: 100%;
-    max-width: 300px;
-    padding: 16px;
+  width: 100%;
+  max-width: 320px;
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+
+  h3 {
+    font-size: 18px;
+    margin-bottom: 24px;
   }
-  
-  .user-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-  }
-  
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .user-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .handle {
-    font-size: 14px;
-    color: gray;
-  }
-  
-  .follow-button {
-    font-size: 12px;
-  }
-  
-  /* Hide on mobile */
-  @media screen and (max-width: 768px) {
-    .who-to-follow {
-      display: none;
+
+  .user-list {
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .user-info {
+        flex-grow: 1;
+
+        .name {
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .username {
+          font-size: 14px;
+          color: gray;
+        }
+
+        .verified {
+          font-size: 16px;
+          color: #1da1f2;
+        }
+      }
+
+      .follow-btn {
+        align-self: flex-end;
+        margin-top: 8px;
+        background-color: black;
+        color: white;
+      }
+      .follow-btn:hover{
+        background-color: #333;
+    }
     }
   }
-  
+
+  .show-more {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #1da1f2;
+    cursor: pointer;
+  }
+}

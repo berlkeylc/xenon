@@ -1,20 +1,29 @@
 import { Component } from '@angular/core';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatListModule} from '@angular/material/list';
 import { HomeLeftMenuComponent } from './home-left-menu/home-left-menu.component';
 import { HomeRightMenuComponent } from './home-right-menu/home-right-menu.component';
-import { FeedComponent } from "./feed/feed.component";
 import { RouterOutlet } from '@angular/router';
+import { ScreenService } from '../services/screen.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
+import { UiComponentsModule } from '../shared/ui-components/ui-components.module';
 
 @Component({
   selector: 'app-home',
-  imports: [MatGridListModule,
-    MatListModule,
+  imports: [
+    UiComponentsModule,
     HomeLeftMenuComponent,
-    HomeRightMenuComponent, FeedComponent, HomeRightMenuComponent,RouterOutlet],
+    HomeRightMenuComponent, 
+    RouterOutlet, 
+    BottomBarComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  isMobile: boolean = false;
+
+  constructor(private screenService: ScreenService, private deviceService: DeviceDetectorService) {
+    this.isMobile = this.deviceService.isMobile();
+  }
 
 }

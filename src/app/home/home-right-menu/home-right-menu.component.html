@@ -1,17 +1,17 @@
-<mat-card class="who-to-follow">
-    <mat-card-header>
-      <mat-card-title>Who to follow</mat-card-title>
-    </mat-card-header>
-  
-    <mat-divider></mat-divider>
-  
-    <div *ngFor="let user of suggestedUsers" class="user-item">
-      <img [src]="user.avatar" alt="{{ user.name }}" class="avatar">
+<div class="who-to-follow">
+  <h3>Who to follow</h3>
+  <div class="user-list">
+    <div *ngFor="let user of users" class="user">
+      <img [src]="user.avatar" alt="{{ user.name }}" class="avatar" />
       <div class="user-info">
-        <span class="name"><strong>{{ user.name }}</strong></span>
-        <span class="handle">{{ user.handle }}</span>
+        <div class="name">
+          {{ user.name }}
+        </div>
+        <div class="username">{{ user.username }}</div>
       </div>
-      <button mat-button color="primary" class="follow-button">Follow</button>
+      <button mat-raised-button class="follow-btn">Follow</button>
     </div>
-  </mat-card>
+  </div>
+  <a class="show-more">Show more</a>
+</div>
   
