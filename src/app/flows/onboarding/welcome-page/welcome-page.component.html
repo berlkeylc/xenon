@@ -1,0 +1,37 @@
+<div class="RegisterPage">
+    <div class="icon-side">
+        <div  style="display: flex; justify-content: center; align-items: center; border-radius: 15px; width: 100%;">
+            <img  src="xe_centered.png" style="width:35%; border-radius: 15px;"/>
+        </div>
+    </div>
+    <div class="button-side">
+        <div >
+            <div style="text-align: center; font-size: 20px; font-weight: 500; padding-bottom: 15px;">Login or Create Account</div>
+            <div>
+                <div style="text-align: center; margin: 15px;">
+                      <button mat-button (click)="loginWithGoogle()"  type="button" style=" background-color: white;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 15px; width: 93%; border-radius: 8px; margin-bottom: 15px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;  ">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 20px; width: 20px;"><path fill="#1877F2" d="M32 0v32H0V0z"></path><path fill="#FFF" d="M22.94 16H18.5v-3c0-1.27.62-2.5 2.6-2.5h2.02V6.56s-1.83-.31-3.58-.31c-3.65 0-6.04 2.21-6.04 6.22V16H9.44v4.63h4.06V32h5V20.62h3.73l.7-4.62z"></path></svg>
+                          <span style="font-size: 15px; color: black; width:175px;">Login with Facebook</span>
+                        </div>
+                      </button>
+                      <button mat-button (click)="loginWithGoogle()"  type="button" style=" background-color: white;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); padding: 15px; width: 93%; border-radius: 8px; margin-bottom: 5px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; ">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 20px; width: 20px;"><path fill="#4285f4" d="M24.12 25c2.82-2.63 4.07-7 3.32-11.19H16.25v4.63h6.37A5.26 5.26 0 0 1 20.25 22z"></path><path fill="#34a853" d="M5.62 21.31A12 12 0 0 0 24.12 25l-3.87-3a7.16 7.16 0 0 1-10.69-3.75z"></path><path fill="#fbbc02" d="M9.56 18.25c-.5-1.56-.5-3 0-4.56l-3.94-3.07a12.08 12.08 0 0 0 0 10.7z"></path><path fill="#ea4335" d="M9.56 13.69c1.38-4.32 7.25-6.82 11.19-3.13l3.44-3.37a11.8 11.8 0 0 0-18.57 3.43l3.94 3.07z"></path></svg>
+                          <span style="font-size: 15px; color: black; width:175px;">Login with Google</span>
+                        </div>
+                      </button>
+                </div>
+                <div style="text-align: center; margin: 15px;">
+                    <button mat-raised-button color="primary" style="background-color: black; color: white; width: 95%; border-radius: 8px;" (click)="goToEmail()">{{ 'Continue with Email' }}</button>
+                </div>
+                <div style="margin-left: 20px; margin-right: 20px; text-align: center; font-size: 11px; letter-spacing: 0px;line-height: 1rem; margin-top: 25px;">By registering or logging in, I declare that I have read, understood and accepted the Terms of Use and Privacy Policy.</div>
+    
+            </div>
+        </div>
+        
+    </div>
+
+
+</div>
+
