@@ -1,0 +1,75 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 0 10px;
+    padding-top: 50px;
+  }
+  
+  mat-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .login-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .login-link div {
+    margin-left: 5px;
+    color: #3f51b5;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 600px) {
+    mat-card {
+      padding: 10px;
+    }
+  }
+  
+  .register-page {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(100%);
+    animation: openPage 0.25s ease forwards;
+  
+  }
+  
+  @keyframes openPage {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  
+  }
+
+  @media screen and (max-width: 1200px) {
+    // .login-page{
+    //   position: fixed; width: 100%;bottom: 10px;
+    // }
+  }
+  
+  @media screen and (min-width: 1201px) {
+    .register-page{
+      align-self: center;
+    }
+    .register-container{
+      display: flex;
+      
+    }
+    .register-component{
+      width: 40% !important;
+    }
+  }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
-import { UiComponentsModule } from '../../shared/ui-components/ui-components.module';
+import { UiComponentsModule } from '../../shared/ui-components.module';
 
 @Component({
   selector: 'app-feed',

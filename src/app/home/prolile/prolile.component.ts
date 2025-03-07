@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/UIModels';
 import { UserService } from '../../services/user.service';
-import { UiComponentsModule } from '../../shared/ui-components/ui-components.module';
+import { UiComponentsModule } from '../../shared/ui-components.module';
 
 @Component({
   selector: 'app-prolile',

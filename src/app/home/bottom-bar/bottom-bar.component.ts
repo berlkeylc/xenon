@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UiComponentsModule } from '../../shared/ui-components/ui-components.module';
+import { UiComponentsModule } from '../../shared/ui-components.module';
 
 @Component({
   selector: 'app-bottom-bar',

@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { ScreenService } from '../services/screen.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
-import { UiComponentsModule } from '../shared/ui-components/ui-components.module';
+import { UiComponentsModule } from '../shared/ui-components.module';
 
 @Component({
   selector: 'app-home',

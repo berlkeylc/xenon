@@ -1,0 +1,80 @@
+/* Container to center the form */
+.login-container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    padding: 0 10px;
+    padding-top: 100px;
+  }
+  
+  /* MatCard style */
+  mat-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+  }
+  
+  /* Full width for form fields */
+  .full-width {
+    width: 100%;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    mat-card {
+      padding: 10px;
+    }
+  }
+  
+  
+  .login-page {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    transform: translateX(100%);
+    animation: openPage 0.25s ease forwards;
+  
+  }
+  
+  @keyframes openPage {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  
+  }
+  
+  .register-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .register-link div {
+    margin-left: 5px;
+    color: #3f51b5;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 1200px) {
+    // .login-page{
+    //   position: fixed; width: 100%;bottom: 10px;
+    // }
+  }
+  
+  @media screen and (min-width: 1201px) {
+    .login-page{
+      align-self: center;
+    }
+    .login-container{
+      display: flex;
+      
+    }
+    .login-component{
+      width: 40% !important;
+    }
+  }
