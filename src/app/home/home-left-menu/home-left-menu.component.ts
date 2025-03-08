@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UiComponentsModule } from '../../shared/ui-components.module';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { UiComponentsModule } from '../../shared/ui-components.module';
 })
 export class HomeLeftMenuComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   goToProfile() {
     this.router.navigate(['/profile']);
@@ -21,4 +22,7 @@ export class HomeLeftMenuComponent {
     this.router.navigate(['']);
   }
 
+  async onClickLogOut(){
+    await this.authService.logout();
+  }
 }

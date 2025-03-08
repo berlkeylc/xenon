@@ -1,0 +1,38 @@
+<div class="profile-update" style="overflow: hidden;">
+    <mat-toolbar color="primary">
+      <!-- Back Button -->
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span>Edit Profile</span>
+    </mat-toolbar>
+    <div class="profile-image">
+      <img *ngIf="profileImage()" [src]="profileImage()" alt="Profile Picture">
+      <input type="file" (change)="onFileChange($event)" accept="image/*">
+    </div>
+    
+    <form [formGroup]="profileForm" >
+      <div style="">
+        <mat-form-field appearance="outline" style="width: 100%; padding: 25px; box-sizing: border-box;">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 100%; padding: 25px; box-sizing: border-box;">
+          <mat-label>Display Name</mat-label>
+          <input matInput formControlName="displayName">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" style="width: 100%; padding: 25px; box-sizing: border-box;">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="bio"></textarea>
+        </mat-form-field>
+        
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <button mat-button color="primary" (click)="saveProfile()" style="width: 75%; padding: 25px; box-sizing: border-box; background-color: black; color: white;">Save</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  

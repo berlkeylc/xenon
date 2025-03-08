@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { DashboardService } from '../../services/dashboard.service';
 import { UiComponentsModule } from '../../shared/ui-components.module';
+import { ProfileService } from '../../services/profile.service';
+import { PostService } from '../../services/post.service';
+import { Post } from '../../models/UIModels';
 
 @Component({
   selector: 'app-feed',
@@ -11,11 +13,40 @@ import { UiComponentsModule } from '../../shared/ui-components.module';
 })
 
 export class FeedComponent {
-  tweets: any[] = []; 
+  tweetText: string = '';
 
-  constructor(private dashboardService: DashboardService) {}
+  tweets: Post[] = []; 
+  userProfile: any;
+
+  constructor(private profileService: ProfileService, 
+    private postService: PostService
+  ) {
+    this.postService.getPosts().then(posts => {
+      this.tweets = posts;
+    });
+    this.profileService.userProfile$.subscribe(profile => {
+      if (profile) {
+        this.userProfile = profile;
+      }
+    });
+  }
 
   ngOnInit() {
-    this.tweets = this.dashboardService.getTweets() ?? [];
+  }
+
+  async postTweet() {
+    this.postService.CreatePost(this.tweetText).then(() => {
+      this.postService.getPosts().then(posts => {
+        this.tweets = posts;
+      });
+    });
+  }
+
+  async deleteTweet(tweetId: string) {
+    this.postService.deleteTweet(tweetId).then(() => {
+      this.postService.getPosts().then(posts => {
+        this.tweets = posts;
+      });
+    });
   }
 }

@@ -5,25 +5,42 @@
 </div>
 
 <div class="tweet-box">
-  <mat-form-field appearance="outline" class="tweet-input">
-    <textarea matInput placeholder="What's happening?" rows="3"></textarea>
-  </mat-form-field>
-  <button mat-raised-button color="primary" class="tweet-button">Post</button>
+  <form (ngSubmit)="postTweet()" #tweetForm="ngForm" class="tweet-form">
+    <mat-form-field appearance="outline" class="tweet-input">
+      <textarea matInput placeholder="What's happening?" rows="3" [(ngModel)]="tweetText" name="tweetText" required></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="tweet-button" type="submit" [disabled]="!tweetText.trim()">Post</button>
+  </form>
 </div>
 
 
 <div class="feed-container">
   <div *ngFor="let tweet of tweets" class="tweet-card">
     <div class="tweet-header">
-      <mat-icon class="profile-icon">account_circle</mat-icon>
-      <div class="tweet-user-info">
-        <span class="tweet-user"><strong>{{ tweet.user }}</strong></span>
-        <span class="tweet-handle">{{ tweet.handle }}</span>
+      <div style="display: flex;">
+        <mat-icon class="profile-icon">account_circle</mat-icon>
+        <div class="tweet-user-info">
+          <span class="tweet-user"><strong>{{ tweet.fullName }}</strong></span>
+          <span class="tweet-handle">{{ tweet.username }}</span>
+        </div>
+      </div>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <div class="nav-icon">
+            <mat-icon>more_horiz</mat-icon>
+          </div>
+        </button>
+        <mat-menu #menu="matMenu" style="background-color: white;">
+          <button mat-menu-item (click)="deleteTweet(tweet.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
 
     <div>
-      <p>{{ tweet.content }}</p>
+      <p>{{ tweet.text }}</p>
     </div>
 
     <div class="tweet-actions">

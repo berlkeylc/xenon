@@ -1,18 +1,18 @@
-import { Injectable, signal } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import firebase from 'firebase/compat/app';
+import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SpinnerService } from './spinner.service';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, User, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider, signOut, getIdToken, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, User, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider, signOut, getIdToken, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private tokenKey = 'authToken';
-  user = signal<User | null>(null);
+  private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  public user$ = this.user.asObservable();
+
   private auth = getAuth();
 
 
@@ -21,8 +21,9 @@ export class AuthService {
     //private toastr: CustomToastrService, 
     private router: Router,) {
       onAuthStateChanged(this.auth, (user) => {
-        this.user.set(user);
+        this.user.next(user);
       });
+ 
   }
 
   async googleSignIn(): Promise<void> {
@@ -78,6 +79,7 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
+    this.spinner.show(); 
     try {
       await signOut(this.auth);
       this.router.navigate(['welcome-page']); 
@@ -103,7 +105,7 @@ export class AuthService {
   //   return !!token;
   // }
   isAuthenticated(): boolean {
-    return this.user() !== null;
+    return !!this.user.value;
   }
 
   getAuthHeaders(): HttpHeaders {
@@ -114,7 +116,7 @@ export class AuthService {
   }
 
   getUser(): User | null {
-    return this.user();
+    return this.user.value;
   }
 
   async forgotPassword(email: string): Promise<void> {

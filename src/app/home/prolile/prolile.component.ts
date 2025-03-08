@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { User } from '../../models/UIModels';
 import { UserService } from '../../services/user.service';
 import { UiComponentsModule } from '../../shared/ui-components.module';
+import { Router } from '@angular/router';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-prolile',
@@ -11,10 +13,18 @@ import { UiComponentsModule } from '../../shared/ui-components.module';
 })
 export class ProlileComponent {
   user: User | null = null;
+  userProfile: User | null = null;
+  tweets: any[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, 
+    private postService: PostService,   
+    private router: Router) {}
 
   ngOnInit(): void {
+    this.userService.getCurrentUser().then(user => {
+      this.userProfile = user;   });
+    this.postService.getCurrentUserPosts().then(posts => {
+      this.tweets = posts;    });
     this.userService.getUser().subscribe(
       (data) => {
         this.user = data; 
@@ -24,14 +34,13 @@ export class ProlileComponent {
       }
     );
   }
-  tweets = [
-    { user: 'John Doe', content: 'Hello Twitter! 🚀', likes: 5 },
-    { user: 'John Doe', content: 'Angular is awesome! ❤️', likes: 12 },
-  ];
 
   likedTweets = [
     { user: 'Jane Smith', content: 'Loving this new Twitter clone! 🔥', likes: 25 },
     { user: 'Mike Johnson', content: 'Who else is coding at 2 AM? 😂', likes: 8 },
   ];
 
+  goToProfileUpdate(){
+    this.router.navigate(['/profile-update']);
+  }
 }
