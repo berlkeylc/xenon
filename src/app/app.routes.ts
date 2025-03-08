@@ -7,6 +7,8 @@ import { LoginPageComponent } from './flows/onboarding/login-page/login-page.com
 import { RegisterPageComponent } from './flows/onboarding/register-page/register-page.component';
 import { ForgotPasswordComponent } from './flows/onboarding/forgot-password/forgot-password.component';
 import { ForgotPasswordExecuteComponent } from './flows/onboarding/forgot-password/forgot-password-execute/forgot-password-execute.component';
+import { AuthGuard } from './guard/auth.guard';
+import { ProfileUpdateComponent } from './home/profile-update/profile-update.component';
 
 export const routes: Routes = [
   {
@@ -29,12 +31,14 @@ export const routes: Routes = [
     path: 'forgot-password-execute',
     component: ForgotPasswordExecuteComponent,
   },
-    {
-        path: '',
-        component: HomeComponent,
-        children: [
-          { path: '', component: FeedComponent },
-          { path: 'profile', component: ProlileComponent },
-        ],
-      },
+  {
+      path: '',
+      component: HomeComponent,
+      children: [
+        { path: '', component: FeedComponent },
+        { path: 'profile', component: ProlileComponent },
+        { path: 'profile-update', component: ProfileUpdateComponent },
+      ],
+      canActivate: [AuthGuard] 
+    },
 ];

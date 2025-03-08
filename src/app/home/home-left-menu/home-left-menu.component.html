@@ -58,6 +58,22 @@
           <span>Profile</span>
         </div>
       </a>
+      <a mat-list-item routerLink="/profile" [matMenuTriggerFor]="menu">
+        <div class="nav-icon">
+          <mat-icon style="border: 2px solid black; border-radius: 50%;">more_horiz</mat-icon>
+          <span>More</span>
+        </div>
+      </a>
+      <mat-menu #menu="matMenu" style="background-color: white;">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item (click)="onClickLogOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
     </mat-nav-list>
     <button class="tweet-button" mat-button color="primary" fullWidth>Post</button>
   </div>

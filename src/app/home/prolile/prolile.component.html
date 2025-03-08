@@ -7,16 +7,16 @@
       <img class="profile-pic" [src]="user?.avatarUrl" alt="Profile Picture" />
   
       <div class="profile-details">
-        <h2>{{ user?.name }}</h2>
-        <p class="handle">{{ user?.username }}</p>
-        <p class="bio">{{ user?.bio || 'No bio available' }}</p>
+        <h2>{{ userProfile?.fullName }}</h2>
+        <p class="handle"><span>&#64;</span>{{ userProfile?.username }}</p>
+        <p class="bio">{{ userProfile?.bio || 'No bio available' }}</p>
   
         <div class="follow-info">
           <span><strong>120</strong> Following</span>
           <span><strong>500</strong> Followers</span>
         </div>
   
-        <button class="profile-button" mat-button color="primary">Edit Profile</button>
+        <button class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Edit Profile</button>
       </div>
     </div>
   

@@ -6,6 +6,7 @@ import { UiComponentsModule } from './shared/ui-components.module';
 import { environment } from '../environments/environment';
 import { initializeApp } from 'firebase/app';
 import { FirebaseConfigComponent } from './shared/firebase-config.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 initializeApp(environment.firebaseConfig);
 @Component({
@@ -13,7 +14,8 @@ initializeApp(environment.firebaseConfig);
   imports: [
     RouterOutlet,   
     UiComponentsModule, 
-    FirebaseConfigComponent
+    FirebaseConfigComponent,
+    SpinnerComponent
   ], 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
