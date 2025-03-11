@@ -1,11 +1,7 @@
-<div class="profile-update" style="overflow: hidden;">
-    <mat-toolbar color="primary">
-      <!-- Back Button -->
-      <button mat-icon-button (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <span>Edit Profile</span>
-    </mat-toolbar>
+<app-ui-view-header [title]="headerTitle" [isBackButtonEnabled]="true"></app-ui-view-header>
+
+<div class="profile-update" style="    position: relative;
+    bottom: -80px;">
     <div class="profile-image">
       <img *ngIf="profileImage()" [src]="profileImage()" alt="Profile Picture">
       <input type="file" (change)="onFileChange($event)" accept="image/*">

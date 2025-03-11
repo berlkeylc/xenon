@@ -7,6 +7,8 @@
     overflow: hidden;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     min-height: 1200px;
+    position: relative;
+    bottom: -40px;
   }
   
   .cover-photo {
@@ -77,38 +79,6 @@
     padding: 16px;
   }
   
-  .tweet-card {
-    margin-bottom: 12px;
-    padding: 16px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .tweet-header {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-icon {
-    font-size: 40px;
-    margin-right: 10px;
-  }
-  
-  .tweet-user-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .tweet-handle {
-    color: gray;
-    font-size: 14px;
-  }
-  
-  .tweet-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-  }
-
   .profile-button{
     background-color: white;
     color: black;

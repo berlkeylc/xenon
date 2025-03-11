@@ -1,0 +1,33 @@
+.tweet-card {
+    margin-bottom: 12px;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .tweet-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .profile-icon {
+    font-size: 40px;
+    margin-right: 10px;
+  }
+  
+  .tweet-user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .tweet-handle {
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .tweet-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  
+  

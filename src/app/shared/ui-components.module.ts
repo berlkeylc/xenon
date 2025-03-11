@@ -14,13 +14,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UiViewHeaderComponent } from '../components/ui-view-header/ui-view-header.component';
+import { PostComponent } from '../components/post/post.component';
 
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    UiViewHeaderComponent,
+    PostComponent
   ],
   exports: [
     MatToolbarModule,
@@ -39,7 +43,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTabsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    FormsModule  
+    FormsModule,
+    UiViewHeaderComponent,
+    PostComponent
   ]
 })
 export class UiComponentsModule { }

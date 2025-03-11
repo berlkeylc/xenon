@@ -21,6 +21,7 @@ import { UiComponentsModule } from '../shared/ui-components.module';
 })
 export class HomeComponent {
   isMobile: boolean = false;
+  showTweetModal = false;
 
   constructor(private screenService: ScreenService, private deviceService: DeviceDetectorService) {
     this.isMobile = this.deviceService.isMobile();

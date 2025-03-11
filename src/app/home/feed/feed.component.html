@@ -1,10 +1,8 @@
 <div class="main-container">
 
-<div class="feed-header">
-  <span>Home</span>
-</div>
+<app-ui-view-header [title]="headerTitle"></app-ui-view-header>
 
-<div class="tweet-box">
+<div class="tweet-box" *ngIf="!isMobile">
   <form (ngSubmit)="postTweet()" #tweetForm="ngForm" class="tweet-form">
     <mat-form-field appearance="outline" class="tweet-input">
       <textarea matInput placeholder="What's happening?" rows="3" [(ngModel)]="tweetText" name="tweetText" required></textarea>
@@ -13,43 +11,20 @@
   </form>
 </div>
 
-
 <div class="feed-container">
-  <div *ngFor="let tweet of tweets" class="tweet-card">
-    <div class="tweet-header">
-      <div style="display: flex;">
-        <mat-icon class="profile-icon">account_circle</mat-icon>
-        <div class="tweet-user-info">
-          <span class="tweet-user"><strong>{{ tweet.fullName }}</strong></span>
-          <span class="tweet-handle">{{ tweet.username }}</span>
-        </div>
-      </div>
-      <div>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <div class="nav-icon">
-            <mat-icon>more_horiz</mat-icon>
-          </div>
-        </button>
-        <mat-menu #menu="matMenu" style="background-color: white;">
-          <button mat-menu-item (click)="deleteTweet(tweet.id)">
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
+  <app-post [tweets]="tweets"></app-post>
+</div>
+</div>
 
-    <div>
-      <p>{{ tweet.text }}</p>
-    </div>
+<button class="fab" (click)="openTweetModal()" *ngIf="isMobile">
+  <span>+</span> 
+</button>
 
-    <div class="tweet-actions">
-      <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
-      <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
-      <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-      <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
-    </div>
+<div class="tweet-modal" *ngIf="showTweetModal && isMobile">
+  <div class="modal-content">
+    <h3>Create Tweet</h3>
+    <textarea #tweetInput [(ngModel)]="tweetText" placeholder="What's happening?"></textarea>
+    <button (click)="postTweet()">Post</button>
+    <button class="close-btn" (click)="showTweetModal = false">Cancel</button>
   </div>
 </div>
-</div>
-
