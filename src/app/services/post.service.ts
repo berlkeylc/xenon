@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getAuth } from 'firebase/auth';
-import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, orderBy, query, where } from 'firebase/firestore';
 import { Post, User } from '../models/UIModels';
 import { SpinnerService } from './spinner.service';
 import { ProfileService } from './profile.service';
@@ -28,7 +28,8 @@ export class PostService {
       if (user) {
         const db = getFirestore();
         const tweetsRef = collection(db, 'tweets');
-        const tweetsQuery = query(tweetsRef, where('userId', '==', user.uid)); 
+        const tweetsQuery = query(tweetsRef, 
+        where('userId', '==', user.uid)); 
   
         try {
           const querySnapshot = await getDocs(tweetsQuery);
@@ -46,6 +47,8 @@ export class PostService {
             text: post.text,
             id: post.id
           }));
+          posts = posts.sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); });
           this.spinner.hide();
           return posts;
         } catch (error) {
@@ -91,13 +94,17 @@ export class PostService {
       async getPosts() : Promise<Post[]> {
         this.spinner.show();
           const db = getFirestore();
-          const tweetQuerySnapshot = await getDocs(collection(db, 'tweets'));
+          const tweetsRef = collection(db, 'tweets');
+          const tweetsQueryDesc = query(tweetsRef, orderBy('createdAt', 'desc'));
+
           let posts : Post[] = [];
 
-          let data : any[] = tweetQuerySnapshot.docs.map(doc => ({
-            id: doc.id,      
-            ...doc.data()   
+          const querySnapshot = await getDocs(tweetsQueryDesc);
+          let data : any[] = querySnapshot.docs.map(doc => ({
+            id: doc.id, 
+            ...doc.data() 
           }));
+          
           posts = data.map((post : any) => ({
             username: post.username,
             userId: post.userId,

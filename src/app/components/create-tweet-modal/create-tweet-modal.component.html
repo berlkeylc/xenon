@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Create Tweet</h2>
+<mat-dialog-content>
+    
+    <textarea class="modal-textarea" #tweetInput [(ngModel)]="tweetText" placeholder="What's happening?"></textarea>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+
+  <button mat-button class="post-btn" (click)="postTweet()">Post</button>
+  <button mat-button class="close-btn" (click)="onNoClick()">Cancel</button>
+
+</mat-dialog-actions>

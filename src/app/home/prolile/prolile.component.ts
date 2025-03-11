@@ -15,6 +15,7 @@ export class ProlileComponent {
   user: User | null = null;
   userProfile: User | null = null;
   tweets: any[] = [];
+  headerTitle = '';
 
   constructor(private userService: UserService, 
     private postService: PostService,   
@@ -22,7 +23,9 @@ export class ProlileComponent {
 
   ngOnInit(): void {
     this.userService.getCurrentUser().then(user => {
-      this.userProfile = user;   });
+      this.userProfile = user;   
+      this.headerTitle = user.fullName;
+    });
     this.postService.getCurrentUserPosts().then(posts => {
       this.tweets = posts;    });
     this.userService.getUser().subscribe(

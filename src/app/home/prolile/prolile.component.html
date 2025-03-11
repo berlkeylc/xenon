@@ -1,3 +1,5 @@
+<app-ui-view-header [title]="headerTitle" [isBackButtonEnabled]="true"></app-ui-view-header>
+
 <div class="profile-container">
     <!-- Cover Photo -->
     <div class="cover-photo"></div>
@@ -23,26 +25,7 @@
     <mat-tab-group>
       <mat-tab label="Tweets">
         <div class="feed-container">
-          <div *ngFor="let tweet of tweets" class="tweet-card">
-            <div class="tweet-header">
-              <mat-icon class="profile-icon">account_circle</mat-icon>
-              <div class="tweet-user-info">
-                <span class="tweet-user"><strong>{{ tweet.user }}</strong></span>
-                <span class="tweet-handle">{{ tweet.user }}</span>
-              </div>
-            </div>
-        
-            <div>
-              <p>{{ tweet.content }}</p>
-            </div>
-        
-            <div class="tweet-actions">
-              <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
-              <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
-              <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-              <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
-            </div>
-          </div>
+          <app-post [tweets]="tweets"></app-post>
         </div>
       </mat-tab>
   

@@ -21,6 +21,8 @@ export class ProfileUpdateComponent {
   profileImage = signal<string | null>(null);
   selectedFile: File | null = null;
 
+  headerTitle = 'Profile Update';
+
   constructor(private profileService: ProfileService,
     private router: Router
   ) {
