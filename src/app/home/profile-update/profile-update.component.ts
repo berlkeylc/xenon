@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
    imports: [UiComponentsModule],
   selector: 'app-profile-update',
   templateUrl: './profile-update.component.html',
-  styleUrl: './profile-update.component.css'
+  styleUrl: './profile-update.component.css',
+  providers: [
+    ProfileService,
+  ]
 })
 export class ProfileUpdateComponent {
   profileForm = new FormGroup({
@@ -20,6 +23,7 @@ export class ProfileUpdateComponent {
 
   profileImage = signal<string | null>(null);
   selectedFile: File | null = null;
+  base64Image: string | null = null;
 
   headerTitle = 'Profile Update';
 
@@ -50,11 +54,28 @@ export class ProfileUpdateComponent {
 
   async saveProfile() {
     const { displayName, bio, username } = this.profileForm.value;
-    await this.profileService.updateProfile(displayName!, bio!, this.selectedFile!, username!);
+    if(this.base64Image === null) {
+      this.base64Image = this.profileImage();
+    }
+    await this.profileService.updateProfile(displayName!, bio!, this.base64Image!, username!).then(() => {
+      this.router.navigate(['profile']);
+  });
   }
 
   goBack(): void {
     this.router.navigate(['profile']); 
   }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.base64Image = reader.result as string;
+      };
+    }
+  }
+
 
 }

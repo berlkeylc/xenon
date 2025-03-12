@@ -1,37 +1,41 @@
 <div *ngFor="let tweet of tweets" class="tweet-card">
-    <div class="tweet-header">
-      <div style="display: flex;">
-        <mat-icon class="profile-icon">account_circle</mat-icon>
-        <div class="tweet-user-info">
-          <span class="tweet-user"><strong>{{ tweet.fullName }}</strong></span>
-          <span class="tweet-handle"><span>&#64;</span>{{ tweet.username }}</span>
+    <div>
+      <img class="profile-pic" [src]="tweet?.avatarUrl" alt="Profile Picture" />
+    </div>
+    <div style="width: 100%; margin-left: 10px;">
+      <div class="tweet-header">
+        <div style="display: flex;">
+          <div class="tweet-user-info">
+            <span class="tweet-user"><strong>{{ tweet.fullName }}</strong></span>
+            <span class="tweet-handle"><span>&#64;</span>{{ tweet.username }}</span>
+          </div>
+          <div class="tweet-user-info" style="display: flex; align-items: center; justify-content: center;">
+            <span class="tweet-handle" style="margin-left: 10px; padding-bottom: 15px;">{{ formatDate(tweet.createdAt) }}</span>
+          </div>
         </div>
-        <div class="tweet-user-info" style="display: flex; align-items: center; justify-content: center;">
-          <span class="tweet-handle" style="margin-left: 10px; padding-bottom: 15px;">{{ formatDate(tweet.createdAt) }}</span>
-        </div>
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <div class="nav-icon">
+              <mat-icon>more_horiz</mat-icon>
+            </div>
+          </button>
+          <mat-menu #menu="matMenu" style="background-color: white;">
+            <button mat-menu-item (click)="deleteTweet(tweet.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+          </div>
       </div>
       <div>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <div class="nav-icon">
-            <mat-icon>more_horiz</mat-icon>
-          </div>
-        </button>
-        <mat-menu #menu="matMenu" style="background-color: white;">
-          <button mat-menu-item (click)="deleteTweet(tweet.id)">
-            <mat-icon>delete</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
+          <p class="post-content">{{ tweet.text }}</p>
+        </div>
+    
+        <div class="tweet-actions">
+          <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+          <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
+          <button mat-icon-button><mat-icon>repeat</mat-icon></button>
+          <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
         </div>
     </div>
-    <div>
-        <p>{{ tweet.text }}</p>
-      </div>
-  
-      <div class="tweet-actions">
-        <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
-        <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
-        <button mat-icon-button><mat-icon>repeat</mat-icon></button>
-        <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>
-      </div>
 </div> 

@@ -12,11 +12,11 @@ export class UserService {
 
   private mainUser: User = {
     id: '1',
-    fullName: 'Berke YALÇINER',
+    displayName: 'Berke YALÇINER',
     email: 'johndoe@example.com',
     username: '@berlkeylc',
     bio: 'Frontend Developer | Tech Enthusiast',
-    avatarUrl: 'https://pbs.twimg.com/profile_images/1804984492731289601/tcnURrO3_400x400.jpg',
+    photoURL: 'https://pbs.twimg.com/profile_images/1804984492731289601/tcnURrO3_400x400.jpg',
     location: 'San Francisco, CA',
     website: 'https://johndoe.dev',
   };
@@ -44,11 +44,11 @@ export class UserService {
             let data : any = docSnap.data();
             currentUser = {
               id: user.uid,
-              fullName: data.displayName,
+              displayName: data.displayName,
               email: user.email ?? undefined,
               username: data.username,
               bio: data.bio,
-              avatarUrl: data.photoURL,
+              photoURL: data.photoURL,
             };
             this.spinner.hide();
             return currentUser;
