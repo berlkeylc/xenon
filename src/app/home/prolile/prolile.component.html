@@ -6,10 +6,10 @@
   
     <!-- Profile Image & Info -->
     <div class="profile-info">
-      <img class="profile-pic" [src]="user?.avatarUrl" alt="Profile Picture" />
+      <img class="profile-pic" [src]="userProfile?.photoURL" alt="Profile Picture" />
   
       <div class="profile-details">
-        <h2>{{ userProfile?.fullName }}</h2>
+        <h2>{{ userProfile?.displayName }}</h2>
         <p class="handle"><span>&#64;</span>{{ userProfile?.username }}</p>
         <p class="bio">{{ userProfile?.bio || 'No bio available' }}</p>
   

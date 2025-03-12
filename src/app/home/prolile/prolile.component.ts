@@ -24,7 +24,7 @@ export class ProlileComponent {
   ngOnInit(): void {
     this.userService.getCurrentUser().then(user => {
       this.userProfile = user;   
-      this.headerTitle = user.fullName;
+      this.headerTitle = user.displayName;
     });
     this.postService.getCurrentUserPosts().then(posts => {
       this.tweets = posts;    });

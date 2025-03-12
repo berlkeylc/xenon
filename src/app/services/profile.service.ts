@@ -31,19 +31,12 @@ export class ProfileService {
     }
   }
 
-  async updateProfile(displayName: string, bio: string, photoFile?: File, username?: string) {
+  async updateProfile(displayName: string, bio: string, photoFile64?: string, username?: string) {
     this.spinner.show();
     const user = getAuth().currentUser;
     if (!user) return;
 
-    let photoURL = this.userProfile.value?.photoURL;
-    if (photoFile) {
-      const storageRef = ref(this.storage, `profile_pictures/${user.uid}`);
-      //await uploadBytes(storageRef, photoFile);
-      //photoURL = await getDownloadURL(storageRef);
-    }
-
-    const updatedProfile = { displayName, bio, photoURL :  "asd", username: username };
+    const updatedProfile = { displayName, bio, photoURL :  photoFile64, username: username };
 
     const userDocRef = doc(collection(this.db, 'users'), user.uid);
     await setDoc(userDocRef, updatedProfile, { merge: true });
