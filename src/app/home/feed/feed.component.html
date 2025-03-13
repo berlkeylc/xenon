@@ -12,11 +12,13 @@
 </div>
 
 <div class="feed-container">
-  <app-post [tweets]="tweets"></app-post>
+  <div *ngFor="let tweet of tweets">
+    <app-post (postDeleted)="removePostFromFeed($event)" [tweet]="tweet"></app-post>
+  </div>
 </div>
 </div>
 
-<button class="fab" (click)="openTweetModal()" *ngIf="isMobile">
+<button class="fab" (click)="openDialog()" *ngIf="isMobile">
   <span>+</span> 
 </button>
 
