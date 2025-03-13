@@ -6,10 +6,13 @@ import { Post } from '../../models/UIModels';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { DatePipe } from '@angular/common';
 import { PostComponent } from "../../components/post/post.component";
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTweetModalComponent } from '../../components/create-tweet-modal/create-tweet-modal.component';
 
 @Component({
   selector: 'app-feed',
-  imports: [UiComponentsModule, DatePipe, PostComponent],
+  imports: [UiComponentsModule, DatePipe, PostComponent
+  ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss',
   standalone: true,
@@ -28,6 +31,7 @@ export class FeedComponent {
   @ViewChild('tweetInput') tweetInput!: ElementRef; 
 
   headerTitle = 'Home';
+  readonly dialog = inject(MatDialog);
 
   constructor(private profileService: ProfileService, 
     private postService: PostService,
@@ -46,6 +50,13 @@ export class FeedComponent {
   }
 
   ngOnInit() {
+    this.postService.tweetsUpdated$.subscribe((updated) => {
+      if (updated) {
+        this.postService.getPosts().then(posts => {
+          this.tweets = posts;
+        });
+      }
+    });
   }
 
   async postTweet() {
@@ -64,4 +75,17 @@ export class FeedComponent {
       this.tweetInput?.nativeElement?.focus();
     }, 300);
   }
+
+  removePostFromFeed(postId: string) {
+    this.tweets = this.tweets.filter(post => post.id !== postId);
+  }
+
+    openDialog(): void {
+      const dialogRef = this.dialog.open(CreateTweetModalComponent, {});
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+        }
+      });
+    }
 }

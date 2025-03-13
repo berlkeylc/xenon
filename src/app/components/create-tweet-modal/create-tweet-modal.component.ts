@@ -1,9 +1,5 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Component, ElementRef, EventEmitter, inject, Output, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/UIModels';
 import { UiComponentsModule } from '../../shared/ui-components.module';
@@ -20,7 +16,7 @@ export class CreateTweetModalComponent {
   tweetText: string = '';
   tweets: Post[] = []; 
   @ViewChild('tweetInput') tweetInput!: ElementRef; 
-    
+  @Output() postCreated = new EventEmitter<any>(); 
   
   constructor(
         private postService: PostService,
@@ -34,11 +30,9 @@ export class CreateTweetModalComponent {
 
   async postTweet() {
     this.postService.CreatePost(this.tweetText).then(() => {
-      this.postService.getPosts().then(posts => {
-        this.tweets = posts;
+      this.postCreated.emit(this.tweetText); 
         this.tweetText = "";
         this.dialogRef.close();
-      });
     });
   }
 

@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { User } from '../../models/UIModels';
 import { UserService } from '../../services/user.service';
 import { UiComponentsModule } from '../../shared/ui-components.module';
 import { Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTweetModalComponent } from '../../components/create-tweet-modal/create-tweet-modal.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-prolile',
@@ -17,9 +20,15 @@ export class ProlileComponent {
   tweets: any[] = [];
   headerTitle = '';
 
+  readonly dialog = inject(MatDialog);
+  isMobile: boolean = false;
+
   constructor(private userService: UserService, 
     private postService: PostService,   
-    private router: Router) {}
+    private deviceService: DeviceDetectorService,
+    private router: Router) {
+      this.isMobile = this.deviceService.isMobile();
+    }
 
   ngOnInit(): void {
     this.userService.getCurrentUser().then(user => {
@@ -36,6 +45,13 @@ export class ProlileComponent {
         console.error('Kullanıcı verisi çekilirken hata oluştu:', error);
       }
     );
+    this.postService.tweetsUpdated$.subscribe((updated) => {
+      if (updated) {
+        this.postService.getCurrentUserPosts().then(posts => {
+          this.tweets = posts;
+        });
+      }
+    });
   }
 
   likedTweets = [
@@ -45,5 +61,18 @@ export class ProlileComponent {
 
   goToProfileUpdate(){
     this.router.navigate(['/profile-update']);
+  }
+
+  removeTweetFromFeed(tweetId: string) {
+    this.tweets = this.tweets.filter(tweet => tweet.id !== tweetId);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateTweetModalComponent, {});
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+      }
+    });
   }
 }

@@ -4,12 +4,16 @@ import { addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, getFire
 import { Post, User } from '../models/UIModels';
 import { SpinnerService } from './spinner.service';
 import { ProfileService } from './profile.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private userProfile: User = {} as User;
+
+  private tweetsUpdated = new BehaviorSubject<boolean>(false);
+  tweetsUpdated$ = this.tweetsUpdated.asObservable();
 
   constructor(private spinner: SpinnerService, private profileService: ProfileService) {
     this.profileService.userProfile$.subscribe(profile => {
@@ -75,7 +79,7 @@ export class PostService {
           // Save tweet to Firestore
           const db = getFirestore();
           await addDoc(collection(db, 'tweets'), tweetData);
-    
+          this.tweetsUpdated.next(true);
           //postText = '';
         } catch (error) {
           console.error("Error posting tweet:", error);

@@ -1,5 +1,5 @@
 import { DatePipe, NgFor } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,18 +19,18 @@ import { Post } from '../../models/UIModels';
 })
 export class PostComponent {
 
-  @Input() tweets: Post[] = []; 
+  @Input() tweet: Post | undefined;
+  @Output() postDeleted = new EventEmitter<string>(); 
   
   constructor(private datePipe: DatePipe,
         private postService: PostService,
   ) {
   }
 
-  async deleteTweet(tweetId: string) {
-    this.postService.deleteTweet(tweetId).then(() => {
-      this.postService.getPosts().then(posts => {
-        this.tweets = posts;
-      });
+  async deleteTweet(postId: string) {
+    if(!postId) return;
+    this.postService.deleteTweet(postId).then(() => {
+      this.postDeleted.emit(postId); 
     });
   }
 
