@@ -1,30 +1,46 @@
-import { DatePipe, NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DatePipe, NgClass, NgFor } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/UIModels';
+import { LikeService } from '../../services/like.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-post',
   imports: [MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    NgFor
+    NgFor,
+    NgClass
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
     providers: [DatePipe], 
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
 
   @Input() tweet: Post | undefined;
   @Output() postDeleted = new EventEmitter<string>(); 
+
+  isLiked: boolean = false;
+  likesCount: number = 0;
   
   constructor(private datePipe: DatePipe,
         private postService: PostService,
+        private likeService: LikeService,
+        private authService: AuthService
   ) {
+  }
+  async ngOnInit() {
+    if (this.tweet) {
+      const likesSnapshot = await this.likeService.getLikes(this.tweet.id); 
+      const likes = likesSnapshot.docs.map(doc => doc.data()); 
+      this.likesCount = likes.length;
+      this.isLiked = likes.some(like => like['userId'] === this.authService.getUser()?.uid);
+    }
   }
 
   async deleteTweet(postId: string) {
@@ -62,5 +78,18 @@ export class PostComponent {
     }
 
     return this.datePipe.transform(date, 'MMM d, y') ?? ''; 
+  }
+
+  async loadLikes() {
+    if (this.tweet) {
+      this.likesCount = await this.likeService.getLikesCount(this.tweet.id);
+    }
+  }
+
+  async toggleLike() {
+    if (this.tweet) {
+      this.isLiked = (await this.likeService.toggleLike(this.tweet.id)) ?? false;
+    }
+    this.likesCount += this.isLiked ? 1 : -1;
   }
 }
