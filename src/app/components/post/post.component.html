@@ -32,7 +32,12 @@
         </div>
     
         <div class="tweet-actions">
-          <button mat-icon-button><mat-icon>favorite_border</mat-icon></button>
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <button mat-icon-button style="display: flex;" (click)="toggleLike()" [ngClass]="{'liked': isLiked}">
+              <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+            </button>
+            <span [ngClass]="{'liked': isLiked}">{{ likesCount }}</span>
+          </div>
           <button mat-icon-button><mat-icon>chat_bubble_outline</mat-icon></button>
           <button mat-icon-button><mat-icon>repeat</mat-icon></button>
           <button mat-icon-button><mat-icon>bookmark_outline</mat-icon></button>

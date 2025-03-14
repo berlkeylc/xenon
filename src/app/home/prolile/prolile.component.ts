@@ -22,6 +22,7 @@ export class ProlileComponent {
 
   readonly dialog = inject(MatDialog);
   isMobile: boolean = false;
+  isFabVisible : boolean = true;
 
   constructor(private userService: UserService, 
     private postService: PostService,   
@@ -69,10 +70,9 @@ export class ProlileComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateTweetModalComponent, {});
-    
+    this.isFabVisible = false
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-      }
+      this.isFabVisible = true
     });
   }
 }

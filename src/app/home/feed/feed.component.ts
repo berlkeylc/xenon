@@ -33,6 +33,8 @@ export class FeedComponent {
   headerTitle = 'Home';
   readonly dialog = inject(MatDialog);
 
+  isFabVisible : boolean = true;
+
   constructor(private profileService: ProfileService, 
     private postService: PostService,
     private deviceService: DeviceDetectorService,
@@ -82,10 +84,9 @@ export class FeedComponent {
 
     openDialog(): void {
       const dialogRef = this.dialog.open(CreateTweetModalComponent, {});
-  
+      this.isFabVisible = false
       dialogRef.afterClosed().subscribe(result => {
-        if (result !== undefined) {
-        }
+        this.isFabVisible = true
       });
     }
 }
