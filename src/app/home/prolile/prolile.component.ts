@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../../models/UIModels';
 import { UserService } from '../../services/user.service';
 import { UiComponentsModule } from '../../shared/ui-components.module';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTweetModalComponent } from '../../components/create-tweet-modal/create-tweet-modal.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prolile',
@@ -14,43 +15,77 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   templateUrl: './prolile.component.html',
   styleUrl: './prolile.component.scss'
 })
-export class ProlileComponent {
+export class ProlileComponent implements OnInit, OnDestroy {
   user: User | null = null;
   userProfile: User | null = null;
+  currentUserProfile: User | null = null;
+
   tweets: any[] = [];
   headerTitle = '';
 
   readonly dialog = inject(MatDialog);
   isMobile: boolean = false;
   isFabVisible : boolean = true;
+  userId: string;
+  isCurrentUser : boolean = false;
 
+  paramId!: string;
+  private routeSub!: Subscription;
   constructor(private userService: UserService, 
     private postService: PostService,   
     private deviceService: DeviceDetectorService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
       this.isMobile = this.deviceService.isMobile();
+      this.userId = this.route.snapshot.paramMap.get('id')!;
     }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().then(user => {
-      this.userProfile = user;   
-      this.headerTitle = user.displayName;
-    });
-    this.postService.getCurrentUserPosts().then(posts => {
-      this.tweets = posts;    });
-    this.userService.getUser().subscribe(
-      (data) => {
-        this.user = data; 
-      },
-      (error) => {
-        console.error('Kullanıcı verisi çekilirken hata oluştu:', error);
+    this.routeSub = this.route.paramMap.subscribe((params) => {
+      const newId = params.get('id');
+      if(newId && !this.paramId){
+        this.paramId = newId;
       }
-    );
-    this.postService.tweetsUpdated$.subscribe((updated) => {
-      if (updated) {
+      if (newId && newId !== this.paramId) {
+        this.paramId = newId;
+        this.reloadPage();
+      }
+    });
+
+    this.userService.getCurrentUser().then(user => {
+      this.currentUserProfile = user; 
+      
+      if(this.userId){
+        this.userService.getUserById(this.userId).then((data) => {
+            this.userProfile = data;
+            this.headerTitle = this.userProfile?.displayName ?? '';
+            if(this.userProfile?.id === this.currentUserProfile?.id){
+              this.isCurrentUser = true;
+            }
+          }
+        );
+      } else {
+        this.isCurrentUser = true;
+        this.headerTitle = user.displayName;
+      }
+      if(!this.userProfile){
+        this.userProfile = this.currentUserProfile;
+      }
+
+      if(this.isCurrentUser){
         this.postService.getCurrentUserPosts().then(posts => {
-          this.tweets = posts;
-        });
+          this.tweets = posts;    });
+
+          this.postService.tweetsUpdated$.subscribe((updated) => {
+            if (updated) {
+              this.postService.getCurrentUserPosts().then(posts => {
+                this.tweets = posts;
+              });
+            }
+          });
+      } else {
+        this.postService.getPostsByUserId(this.userId).then(posts => {
+          this.tweets = posts;    });
       }
     });
   }
@@ -74,5 +109,15 @@ export class ProlileComponent {
     dialogRef.afterClosed().subscribe(result => {
       this.isFabVisible = true
     });
+  }
+
+  reloadPage() {
+    this.router.navigate([], { queryParamsHandling: 'preserve' }).then(() => {
+      window.location.reload(); 
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe();
   }
 }

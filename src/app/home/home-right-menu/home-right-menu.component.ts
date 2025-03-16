@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { UiComponentsModule } from '../../shared/ui-components.module';
+import { SearchComponent } from "../../components/search/search.component";
 
 @Component({
   selector: 'app-home-right-menu',
-  imports: [UiComponentsModule],
+  imports: [UiComponentsModule, SearchComponent],
   templateUrl: './home-right-menu.component.html',
   styleUrl: './home-right-menu.component.scss'
 })

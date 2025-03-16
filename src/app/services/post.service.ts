@@ -130,4 +130,31 @@ export class PostService {
           const userSnap = await getDoc(userRef);
           return userSnap.exists() ? (userSnap.data() as User) : null;
         }
+
+        async getPostsByUserId(userId: string): Promise<Post[]> {
+          this.spinner.show();
+          const db = getFirestore();
+          const tweetsRef = collection(db, 'tweets');
+          const q = query(tweetsRef, where('userId', '==', userId));
+          const snapshot = await getDocs(q);
+      
+          let tweets: Post[] = await Promise.all(
+            snapshot.docs.map(async (docSnap) => {
+              const tweetData = docSnap.data() as Post;
+              const userData = await this.getUser(tweetData.userId);
+              return {
+                ...tweetData,
+                id: docSnap.id,
+                fullName: userData?.displayName || 'Unknown',
+                username: userData?.username || 'unknown',
+                avatarUrl: userData?.photoURL || '',
+              };
+            })
+          );
+
+          tweets = tweets.sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); });
+          this.spinner.hide();
+          return tweets;
+        }
 }

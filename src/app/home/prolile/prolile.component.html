@@ -18,7 +18,8 @@
           <span><strong>500</strong> Followers</span>
         </div>
   
-        <button class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Edit Profile</button>
+        <button *ngIf="isCurrentUser" class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Edit Profile</button>
+        <button *ngIf="!isCurrentUser" class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Follow</button>
       </div>
     </div>
   

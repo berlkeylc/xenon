@@ -36,7 +36,8 @@ export const routes: Routes = [
       component: HomeComponent,
       children: [
         { path: '', component: FeedComponent },
-        { path: 'profile', component: ProlileComponent },
+        { path: 'profile/:id', component: ProlileComponent, runGuardsAndResolvers: 'always' },  // The :id is a dynamic parameter for user ID
+        { path: 'profile', component: ProlileComponent, runGuardsAndResolvers: 'always'  },
         { path: 'profile-update', component: ProfileUpdateComponent },
       ],
       canActivate: [AuthGuard] 
