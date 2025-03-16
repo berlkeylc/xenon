@@ -1,0 +1,22 @@
+<div class="search-container">
+    <div class="search-input-wrapper">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          type="text"
+          placeholder="Search"
+          (focusin)="isFocused = true" 
+          (focusout)="hideUsersList()" 
+          [formControl]="searchControl"
+        />
+      </div>
+    <div *ngIf="isFocused && filteredUsers.length > 0"  class="user-list">
+      <div *ngFor="let user of filteredUsers" class="user-item" (click)="goToProfile(user.id)">
+        <img [src]="user.photoURL || 'assets/default-avatar.png'" alt="Profile">
+        <div class="user-info">
+          <p class="name">{{ user.displayName }}</p>
+          <p class="username"><span>&#64;</span>{{ user.username }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

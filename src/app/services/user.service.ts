@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/UIModels';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -65,6 +65,45 @@ export class UserService {
         return currentUser;
       }
   
+  }
+
+  async getUsers(): Promise<User[]> {
+    const db = getFirestore();
+
+    const usersCollection = collection(db, 'users');
+    const querySnapshot = await getDocs(usersCollection);
+    
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as User));
+  }
+
+  async getUserById(userId: string): Promise<User | null> {
+    const db = getFirestore();
+    const userRef = doc(db, 'users', userId);
+
+    try {
+      const docSnap = await getDoc(userRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        return {
+          id: userId,
+          displayName: data['displayName'],
+          email: data['email'],
+          username: data['username'],
+          bio: data['bio'],
+          photoURL: data['photoURL'],
+          location: data['location'],
+          website: data['website'],
+        } as User;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
     }
-  
+  }
+
 }
