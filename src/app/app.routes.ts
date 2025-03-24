@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './flows/onboarding/forgot-password/forg
 import { ForgotPasswordExecuteComponent } from './flows/onboarding/forgot-password/forgot-password-execute/forgot-password-execute.component';
 import { AuthGuard } from './guard/auth.guard';
 import { ProfileUpdateComponent } from './home/profile-update/profile-update.component';
+import { FollowersComponent } from './home/followers/followers.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,7 @@ export const routes: Routes = [
         { path: 'profile/:id', component: ProlileComponent, runGuardsAndResolvers: 'always' },  // The :id is a dynamic parameter for user ID
         { path: 'profile', component: ProlileComponent, runGuardsAndResolvers: 'always'  },
         { path: 'profile-update', component: ProfileUpdateComponent },
+        { path: 'followers/:id', component: FollowersComponent },
       ],
       canActivate: [AuthGuard] 
     },

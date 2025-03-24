@@ -1,0 +1,79 @@
+.followers-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  min-height: calc(100vh - 64px);
+  position: relative;
+  bottom: -40px;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.user-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: 1px solid #eee;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 16px;
+  object-fit: cover;
+}
+
+.user-info {
+  flex: 1;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .username {
+    margin: 4px 0;
+    color: #536471;
+    font-size: 14px;
+  }
+
+  .bio {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #0f1419;
+  }
+}
+
+::ng-deep {
+  .mat-mdc-tab-body-wrapper {
+    padding: 16px 0;
+  }
+
+  .mat-mdc-tab-group {
+    background: white;
+  }
+
+  .mat-mdc-tab-header {
+    border-bottom: 1px solid #eee;
+  }
+
+  .mat-mdc-tab {
+    min-width: 120px;
+    justify-content: center;
+  }
+} 

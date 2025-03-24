@@ -108,4 +108,13 @@
   cursor: pointer;
   z-index: 1001;
 }
+
+.clickable {
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #1da1f2;
+  }
+}
   

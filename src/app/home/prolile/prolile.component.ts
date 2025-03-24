@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTweetModalComponent } from '../../components/create-tweet-modal/create-tweet-modal.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subscription } from 'rxjs';
+import { FollowService } from '../../services/follow.service';
 
 @Component({
   selector: 'app-prolile',
@@ -22,6 +23,9 @@ export class ProlileComponent implements OnInit, OnDestroy {
 
   tweets: any[] = [];
   headerTitle = '';
+  followersCount: number = 0;
+  followingCount: number = 0;
+  isFollowing: boolean = false;
 
   readonly dialog = inject(MatDialog);
   isMobile: boolean = false;
@@ -35,7 +39,8 @@ export class ProlileComponent implements OnInit, OnDestroy {
     private postService: PostService,   
     private deviceService: DeviceDetectorService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private followService: FollowService) {
       this.isMobile = this.deviceService.isMobile();
       this.userId = this.route.snapshot.paramMap.get('id')!;
     }
@@ -62,6 +67,7 @@ export class ProlileComponent implements OnInit, OnDestroy {
             if(this.userProfile?.id === this.currentUserProfile?.id){
               this.isCurrentUser = true;
             }
+            this.loadFollowData();
           }
         );
       } else {
@@ -90,6 +96,22 @@ export class ProlileComponent implements OnInit, OnDestroy {
     });
   }
 
+  async loadFollowData() {
+    if (this.userProfile?.id) {
+      this.followersCount = await this.followService.getFollowersCount(this.userProfile.id);
+      this.followingCount = await this.followService.getFollowingCount(this.userProfile.id);
+      this.isFollowing = await this.followService.isFollowing(this.userProfile.id);
+    }
+  }
+
+  async toggleFollow() {
+    if (this.userProfile?.id) {
+      const result = await this.followService.toggleFollow(this.userProfile.id);
+      this.isFollowing = result ?? false;
+      this.followersCount = await this.followService.getFollowersCount(this.userProfile.id);
+    }
+  }
+
   likedTweets = [
     { user: 'Jane Smith', content: 'Loving this new Twitter clone! 🔥', likes: 25 },
     { user: 'Mike Johnson', content: 'Who else is coding at 2 AM? 😂', likes: 8 },
@@ -97,6 +119,12 @@ export class ProlileComponent implements OnInit, OnDestroy {
 
   goToProfileUpdate(){
     this.router.navigate(['/profile-update']);
+  }
+
+  goToFollowers() {
+    if (this.userProfile?.id) {
+      this.router.navigate(['/followers', this.userProfile.id]);
+    }
   }
 
   removeTweetFromFeed(tweetId: string) {
