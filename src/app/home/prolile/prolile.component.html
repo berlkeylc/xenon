@@ -14,12 +14,14 @@
         <p class="bio">{{ userProfile?.bio || 'No bio available' }}</p>
   
         <div class="follow-info">
-          <span><strong>120</strong> Following</span>
-          <span><strong>500</strong> Followers</span>
+          <span (click)="goToFollowers()" class="clickable"><strong>{{ followingCount }}</strong> Following</span>
+          <span (click)="goToFollowers()" class="clickable"><strong>{{ followersCount }}</strong> Followers</span>
         </div>
   
         <button *ngIf="isCurrentUser" class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Edit Profile</button>
-        <button *ngIf="!isCurrentUser" class="profile-button" mat-button color="primary" (click)="goToProfileUpdate()">Follow</button>
+        <button *ngIf="!isCurrentUser" class="profile-button" mat-button color="primary" (click)="toggleFollow()">
+          {{ isFollowing ? 'Unfollow' : 'Follow' }}
+        </button>
       </div>
     </div>
   

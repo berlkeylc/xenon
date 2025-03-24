@@ -1,0 +1,31 @@
+<app-ui-view-header [title]="headerTitle" [isBackButtonEnabled]="true"></app-ui-view-header>
+
+<div class="followers-container">
+  <mat-tab-group>
+    <mat-tab label="Followers">
+      <div class="users-list">
+        <div *ngFor="let user of followers" class="user-card" (click)="goToProfile(user.id)">
+          <img [src]="user.photoURL" alt="Profile Picture" class="user-avatar">
+          <div class="user-info">
+            <h3>{{ user.displayName }}</h3>
+            <p class="username"><span>&#64;</span>{{ user.username }}</p>
+            <p class="bio">{{ user.bio || 'No bio available' }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Following">
+      <div class="users-list">
+        <div *ngFor="let user of following" class="user-card" (click)="goToProfile(user.id)">
+          <img [src]="user.photoURL" alt="Profile Picture" class="user-avatar">
+          <div class="user-info">
+            <h3>{{ user.displayName }}</h3>
+            <p class="username"><span>&#64;</span>{{ user.username }}</p>
+            <p class="bio">{{ user.bio || 'No bio available' }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div> 
